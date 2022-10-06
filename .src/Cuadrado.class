@@ -1,0 +1,132 @@
+' Gambas class file
+
+
+'########################################################################
+'
+'ESTADO - ATRIBUTOS
+'
+'########################################################################
+' * Tiene 4 lados
+' * Lado (Pixeles)
+' * Colores
+' * Posición: X, Y
+Private colorCuadrado As Integer
+Private lado As Short
+Private posX As Short
+Private posY As Short
+
+
+'########################################################################
+'
+'COMPORTAMIENTO - MÉTODOS
+'
+'########################################################################
+'Moverse
+'Pintarse
+
+'Constructor
+Public Sub _new(nuevoColor As Integer, nuevoLado As Short, nuevaX As Short, nuevaY As Short)
+  
+  colorCuadrado = nuevoColor
+  lado = nuevoLado
+  posX = nuevaX
+  posY = nuevaY
+  
+End
+
+Public Function getColor() As Integer
+  
+  Return colorCuadrado
+  
+End
+
+Public Function getX() As Short
+  
+  Return posX
+  
+End
+
+Public Function getY() As Short
+  
+  Return posY
+  
+End
+
+Public Sub setColor(nuevoColor As Integer) As Integer
+  
+  colorCuadrado = nuevoColor
+  
+End
+
+Public Sub setX(nuevaX As Short) As Short
+  
+  posX = nuevaX
+  
+End
+
+Public Sub setY(nuevaY As Short) As Short
+  
+  posY = nuevaY
+  
+End
+
+
+Public Sub pintarse(tablero As DrawingArea)
+  
+  Paint.Begin(tablero)
+  Paint.Brush = Paint.Color(colorCuadrado)
+  Paint.Rectangle(posX, posY, lado, lado)
+  Paint.Fill
+  Paint.End
+  
+End
+
+
+
+Public Sub moverse(letra As String)
+  
+  If letra = "W" Then 
+    posY = posY + lado
+  Endif 
+  If letra = "A" Then 
+    posX = posX - lado
+    
+  Endif 
+  If letra = "S" Then 
+    posY = posY - lado
+    
+  Endif 
+  If letra = "D" Then 
+    posX = posX + lado
+    
+  Endif 
+  
+  pintarse()
+  
+End
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,64,64)
+  { Button1 Button
+    MoveScaled(23,55,18,7)
+    Font = Font["Bold,+4"]
+    Background = Color.SoftOrange
+    Text = ("Empezar")
+  }
+  { DrawingArea1 DrawingArea
+    MoveScaled(8,6,48,47)
+    Background = Color.DarkBlue
+  }
+  { Timer1 #Timer
+    #MoveScaled(54,54)
+    Enabled = True
+    Delay = 1
+  }
+  { Label1 Label
+    MoveScaled(2,0,14,6)
+    Font = Font["Bold,+2"]
+  }
+}

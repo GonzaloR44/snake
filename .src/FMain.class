@@ -1,0 +1,83 @@
+' Gambas class file
+
+Private serpiente As Serpiente
+Private iPasos As Integer
+
+Public Sub Timer1_Timer()
+  DrawingArea1.Refresh()
+  iPasos = iPasos + 1
+
+
+  If Button1.Text = "Pausar" Then
+    DibujarJuego()
+    
+  Else 
+    DibujarPausa()
+  
+  Endif 
+
+End
+
+Private miCuadrado As Cuadrado
+
+
+Public Sub DibujarPausa()
+  
+    ''Mouse.Move(2 + Mouse.ScreenX + Sin((Label1.Width) / 100) * 5, Mouse.ScreenY + Cos((Label1.Width) / 100) * 5)
+    
+    Mouse.Move(Mouse.ScreenX + 1, Mouse.ScreenY + Sin((Label1.Width) / 100) * 5)
+    
+    Dim tmp1 As Float = Sin((Label1.Width) / 100) * 100 + 155
+    'DrawingArea1.Background = Color.RGB(tmp1, tmp1, tmp1)
+    
+    DrawingArea1.Background = Color.RGB(0, 0, Cos((Label1.Width) / 100) * 100 + 140)
+    DrawingArea1.Refresh
+    FMain.Background = Color.RGB(tmp1, tmp1, tmp1)
+    Label1.Text = "Puntuación: "
+    Label1.Width += 8
+  
+  
+End
+
+
+Public Sub DibujarJuego()
+  
+    FMain.Background = Color.RGB(255, 255, 255)
+    DrawingArea1.Background = Color.RGB(Rand(0, 255), Rand(0, 255), Rand(0, 255))
+    DrawingArea1.Refresh
+  
+End
+
+
+Public Sub DrawingArea1_Draw()
+
+  
+   If (serpiente <> Null) Then
+    serpiente.pintarse(DrawingArea1)
+    If iPasos = 3 Then 
+      serpiente.crecer()
+     iPasos = 1
+    Endif
+  Endif
+
+End
+
+Public Sub Button1_Click()
+  
+    miCuadrado = New Cuadrado(Color.Yellow, 30, 200, 200)
+If Button1.Text = "Empezar" Then
+  Button1.Text = "Pausar" 
+  serpiente = New Serpiente(200, 250, &H00FF00)
+  
+Else 
+  Button1.Text = "Empezar"
+ Endif 
+ 
+
+End
+
+Public Sub Form_Open()
+
+  
+
+End

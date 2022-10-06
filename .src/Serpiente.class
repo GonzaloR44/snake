@@ -1,0 +1,81 @@
+' Gambas class file
+
+
+' Gambas class file
+
+
+'########################################################################
+'
+'ESTADO - ATRIBUTOS
+'
+'########################################################################
+
+'Lista: [0] es la cabeza
+
+Private longitud As Short 
+Private muerta As Boolean
+Private cuerpo As Cuadrado[]
+Private direccion As String
+
+
+'########################################################################
+'
+'COMPORTAMIENTO - MÉTODOS
+'
+'########################################################################
+'Moverse
+'Pintarse
+
+'Constructor
+Public Sub _new(nuevaX As Short, nuevaY As Short, colorSerpiente As Integer)
+  
+  Dim cabeza As Cuadrado
+  'La serpiente siempre es de 20px
+  cabeza = New Cuadrado(colorSerpiente, 20, nuevaX, nuevaY)
+  cuerpo = New Cuadrado[]
+  cuerpo.Add(cabeza)
+  
+  
+End
+
+Public Sub cambiarDir(letra As String)
+  If letra = "W" Or letra = "A" Or letra = "S" Or letra = "D" Then
+    direccion = letra
+  Endif 
+  
+End
+
+
+Public Sub pintarse(tablero As DrawingArea)
+
+  Dim iContador As Integer
+  For iContador = 0 To cuerpo.Count - 1
+    cuerpo[iContador].pintarse(tablero)
+  Next  
+End
+
+Public Sub crecer()
+  'Nuevo cuadrado --> Ponerlo en la cabeza --> Se añade al Array --> Se mueve un paso adelante
+  Dim newCabeza As Cuadrado
+  'La serpiente siempre es de 20px
+  newCabeza = New Cuadrado(cuerpo.Last.getColor, 20, cuerpo.Last.getX, cuerpo.Last.getY)
+  cuerpo.Add(newCabeza)
+  newCabeza.moverse(direccion)
+  
+End
+
+Public Function estasMuerta() As Boolean
+  
+  Return False
+  
+End
+
+
+
+Public Sub moverse()
+  Me.crecer()
+  cuerpo.Pop()  
+  pintarse()
+  
+End
+
