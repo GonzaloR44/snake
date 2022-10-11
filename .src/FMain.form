@@ -9,7 +9,7 @@
     Text = ("Empezar")
   }
   { DrawingArea1 DrawingArea
-    MoveScaled(8,6,48,47)
+    MoveScaled(7.8571,6,48.5714,45.7143)
     Background = Color.DarkBlue
   }
   { Timer1 #Timer

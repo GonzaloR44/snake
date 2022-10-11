@@ -51,28 +51,50 @@ Public Sub pintarse(tablero As DrawingArea)
   Dim iContador As Integer
   For iContador = 0 To cuerpo.Count - 1
     cuerpo[iContador].pintarse(tablero)
+  cuerpo[iContador].setColor(Color.Cyan)
   Next  
+  
+  cuerpo.Last.setColor(Color.Green)
 End
 
 Public Sub crecer()
   'Nuevo cuadrado --> Ponerlo en la cabeza --> Se añade al Array --> Se mueve un paso adelante
   Dim newCabeza As Cuadrado
   'La serpiente siempre es de 20px
-  newCabeza = New Cuadrado(cuerpo.Last.getColor, 20, cuerpo.Last.getX, cuerpo.Last.getY)
+  newCabeza = New Cuadrado(cuerpo.Last.getColor(), 20, cuerpo.Last.getX(), cuerpo.Last.getY())
   cuerpo.Add(newCabeza)
   newCabeza.moverse(direccion)
   
 End
 
-Public Function estasMuerta() As Boolean
+Public Function estasMuerta(iAncho As Integer, iAlto As Integer) As Boolean
+  Dim bResultado As Boolean = False
+  Dim cabeza As Cuadrado = cuerpo.Last
+  Dim lado As Short = 20
+  If cabeza.getX() < 0 Or cabeza.getY() < 0 Or cabeza.getX() > iAncho - lado Or cabeza.getY() > iAlto - lado Then 
+     bResultado = True
+  Endif
   
-  Return False
+  'Si cada cuadrado mas de quinta posicion(4)es de X y Y = cabeza == > muere
+  
+  Dim iContador As Integer
+  For iContador = 0 To cuerpo.Count - 4
+    If cuerpo[iContador].getX() = cabeza.getX() And cuerpo[iContador].getY() = cabeza.getY() Then 
+       bResultado = True
+    Endif
+  Next  
+  
+  If bResultado Then 
+     'Stop 
+  Endif
+  Return bResultado
   
 End
 
 
 
 Public Sub moverse()
+
   Me.crecer()
   cuerpo.Pop()  
   pintarse()

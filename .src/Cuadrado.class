@@ -86,22 +86,18 @@ End
 Public Sub moverse(letra As String)
   
   If letra = "W" Then 
-    posY = posY + lado
+    posY = posY - lado
   Endif 
   If letra = "A" Then 
     posX = posX - lado
-    
   Endif 
   If letra = "S" Then 
-    posY = posY - lado
-    
+    posY = posY + lado
   Endif 
   If letra = "D" Then 
     posX = posX + lado
-    
   Endif 
   
-  pintarse()
   
 End
 
