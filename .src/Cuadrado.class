@@ -98,7 +98,6 @@ Public Sub moverse(letra As String)
     posX = posX + lado
   Endif 
   
-  
 End
 
 

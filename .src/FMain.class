@@ -2,20 +2,34 @@
 
 Private serpiente As Serpiente
 Private iPasos As Integer
+Private iCrecer As Integer
 Private decorar As Float
 
 Public Sub Timer1_Timer()
+  Dim muerta As Boolean
+  muerta = False
   DrawingArea1.Refresh()
 
    If Button1.Text = "Pausar" Then
-     DibujarJuego()
-  iPasos = iPasos + 1
-  If iPasos = 10 Then 
-     serpiente.crecer()
-     iPasos = 1
-     serpiente.estasMuerta(DrawingArea1.Width, DrawingArea1.Height)
-   Endif
-    
+      DibujarJuego()
+      iPasos = iPasos + 1
+      iCrecer = iCrecer + 1
+      If iPasos = 13 Then 
+         serpiente.moverse()
+         iPasos = 1
+         muerta = serpiente.estasMuerta(DrawingArea1.Width, DrawingArea1.Height)
+      Endif
+      If iCrecer = 20 Then 
+         serpiente.crecer()
+         iCrecer = 1
+         muerta = serpiente.estasMuerta(DrawingArea1.Width, DrawingArea1.Height)
+      Endif
+      
+      If muerta Then 
+         'Message.Info("¡Has muerto!")
+         Button1.Text = "Reiniciar"
+      Endif
+      
    Else 
      DibujarPausa()
   
@@ -26,11 +40,13 @@ End
 Private miCuadrado As Cuadrado
 
 Public Sub DrawingArea1_KeyPress()
-   Dim k As String = UCase$(Key.Text)
-   If k = "W" Or k = "A" Or k = "S" Or k = "D" Then
-      serpiente.cambiarDir(k)
-   Endif 
-   
+   If serpiente <> Null Then
+      Dim k As String = UCase$(Key.Text)
+      If k = "W" Or k = "A" Or k = "S" Or k = "D" Then
+         serpiente.cambiarDir(k)
+      Endif 
+      
+   Endif
 End
 
 Public Sub Form_KeyPress()
@@ -47,10 +63,16 @@ Public Sub DibujarPausa()
     
     ' Mouse.Move(Mouse.ScreenX + 1, Mouse.ScreenY + Sin((Label1.Width) / 100) * 5)
     
-    Dim tmp1 As Float = Sin((decorar) / 100) * 100 + 155
+    Dim tmp1 As Float
+    tmp1 = Sin((decorar) / 100) * 100 + 155
     'DrawingArea1.Background = Color.RGB(tmp1, tmp1, tmp1)
     
-    DrawingArea1.Background = Color.RGB(0, 0, Cos((decorar) / 100) * 100 + 140)
+    If Button1.Text = "Reiniciar" Then 
+       DrawingArea1.Background = Color.RGB(Cos((decorar) / 100) * 100 + 140, 0, 0)
+    Else 
+       DrawingArea1.Background = Color.RGB(0, 0, Cos((decorar) / 100) * 100 + 140)
+    Endif 
+    
     DrawingArea1.Refresh
     FMain.Background = Color.RGB(tmp1, tmp1, tmp1)
     Label1.Text = "Puntuación: "
@@ -82,9 +104,9 @@ Public Sub Button1_Click()
   
     miCuadrado = New Cuadrado(Color.Yellow, 30, 200, 200)
 If Button1.Text = "Empezar" Then
-    DrawingArea1.Background = Color.RGB(Rand(0, 255), Rand(0, 255), Rand(0, 255))
+    DrawingArea1.Background = Color.Lighter(Color.RGB(Rand(0, 255), Rand(0, 255), Rand(0, 255)))
   Button1.Text = "Pausar" 
-  serpiente = New Serpiente(75, 62, &H00FF00)
+  serpiente = New Serpiente(80, 80, &H00FF00) '///////////////////////////////////// SERPIENTE SPAWN
   
 Else 
   Button1.Text = "Empezar"
