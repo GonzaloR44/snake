@@ -16,7 +16,7 @@ Private longitud As Short
 Private muerta As Boolean
 Private cuerpo As Cuadrado[]
 Private direccion As String
-Private bufDireccion As String ' Buffer Direccion
+Private movimientoBuff As Boolean
 
 
 '########################################################################
@@ -35,6 +35,7 @@ Public Sub _new(nuevaX As Short, nuevaY As Short, colorSerpiente As Integer)
   cabeza = New Cuadrado(colorSerpiente, 20, nuevaX, nuevaY)
   cuerpo = New Cuadrado[]
   cuerpo.Add(cabeza)
+  direccion = "D"
   
   
 End
@@ -42,11 +43,13 @@ End
 Public Sub cambiarDir(letra As String)
 
    If (letra = "W" And direccion <> "S") Or (letra = "A" And direccion <> "D") Or (letra = "S" And direccion <> "W") Or (letra = "D" And direccion <> "A") Then
-      direccion = letra
-      bufDireccion = direccion
-   Else If bufDireccion <> Null Then
-      direccion = bufDireccion
-      bufDireccion = letra
+      If direccion <> letra Then
+         direccion = letra
+         If movimientoBuff = False Then 
+            moverse()
+            movimientoBuff = True
+         Endif
+      Endif 
    Endif  
   
 End
@@ -66,18 +69,17 @@ Public Sub pintarse(tablero As DrawingArea)
 End
 
 Public Sub crecer()
-   'Nuevo cuadrado --> Ponerlo en la cabeza --> Se añade al Array --> Se mueve un paso adelante
-   Dim newCabeza As Cuadrado
-   'La serpiente siempre es de 20px
-   newCabeza = New Cuadrado(cuerpo.Last.getColor(), 20, cuerpo.Last.getX(), cuerpo.Last.getY())
-   cuerpo.Add(newCabeza)
-   
-   
-   newCabeza.moverse(direccion)
-   
-   If bufDireccion <> Null Then
-      direccion = bufDireccion
-   Endif
+   If movimientoBuff = False Then
+      'Nuevo cuadrado --> Ponerlo en la cabeza --> Se añade al Array --> Se mueve un paso adelante
+      Dim newCabeza As Cuadrado
+      'La serpiente siempre es de 20px
+      newCabeza = New Cuadrado(cuerpo.Last.getColor(), 20, cuerpo.Last.getX(), cuerpo.Last.getY())
+      cuerpo.Add(newCabeza)
+      
+      newCabeza.moverse(direccion)
+   Else 
+      movimientoBuff = False
+   Endif 
    
 End
 

@@ -107,9 +107,12 @@ If Button1.Text = "Empezar" Then
     DrawingArea1.Background = Color.Lighter(Color.RGB(Rand(0, 255), Rand(0, 255), Rand(0, 255)))
   Button1.Text = "Pausar" 
   serpiente = New Serpiente(80, 80, &H00FF00) '///////////////////////////////////// SERPIENTE SPAWN
+  serpiente.crecer()
   
 Else 
   Button1.Text = "Empezar"
+  serpiente = Null
+  DrawingArea1.Clear()
  Endif 
  
 
