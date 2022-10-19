@@ -14,12 +14,12 @@ Public Sub Timer1_Timer()
       DibujarJuego()
       iPasos = iPasos + 1
       iCrecer = iCrecer + 1
-      If iPasos = 13 Then 
+      If iPasos = 20 Then 
          serpiente.moverse()
          iPasos = 1
          muerta = serpiente.estasMuerta(DrawingArea1.Width, DrawingArea1.Height)
       Endif
-      If iCrecer = 20 Then 
+      If iCrecer = 20 And False Then 
          serpiente.crecer()
          iCrecer = 1
          muerta = serpiente.estasMuerta(DrawingArea1.Width, DrawingArea1.Height)

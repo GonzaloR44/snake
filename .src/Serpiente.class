@@ -46,7 +46,11 @@ Public Sub cambiarDir(letra As String)
       If direccion <> letra Then
          direccion = letra
          If movimientoBuff = False Then 
-            moverse()
+            Dim newCabeza As Cuadrado
+            'La serpiente siempre es de 20px
+            newCabeza = New Cuadrado(cuerpo.Last.getColor(), 20, cuerpo.Last.getX(), cuerpo.Last.getY())
+            cuerpo.Add(newCabeza)
+            newCabeza.moverse(direccion)
             movimientoBuff = True
          Endif
       Endif 
@@ -75,7 +79,6 @@ Public Sub crecer()
       'La serpiente siempre es de 20px
       newCabeza = New Cuadrado(cuerpo.Last.getColor(), 20, cuerpo.Last.getX(), cuerpo.Last.getY())
       cuerpo.Add(newCabeza)
-      
       newCabeza.moverse(direccion)
    Else 
       movimientoBuff = False
