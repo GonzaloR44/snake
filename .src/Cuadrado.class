@@ -57,7 +57,7 @@ Public Sub setColor(nuevoColor As Integer) As Integer
   colorCuadrado = nuevoColor
   
 End
-
+'
 Public Sub setX(nuevaX As Short) As Short
   
   posX = nuevaX

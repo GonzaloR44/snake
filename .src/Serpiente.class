@@ -58,7 +58,7 @@ Public Sub cambiarDir(letra As String)
   
 End
 
-
+'
 Public Sub pintarse(tablero As DrawingArea)
   Dim iContador As Integer
   For iContador = 0 To cuerpo.Count - 1

@@ -4,7 +4,7 @@ Private serpiente As Serpiente
 Private iPasos As Integer
 Private iCrecer As Integer
 Private decorar As Float
-
+'
 Public Sub Timer1_Timer()
   Dim muerta As Boolean
   muerta = False
